@@ -2,17 +2,18 @@ package network
 
 import "net"
 
+// ConnWithBuffer wraps a net.Conn and includes a read buffer.
 type ConnWithBuffer struct {
 	net.Conn
-	buff []byte
+	Buffer []byte
 }
 
 func (c *ConnWithBuffer) Read(b []byte) (n int, err error) {
-	if len(c.buff) == 0 {
+	if len(c.Buffer) == 0 {
 		return c.Conn.Read(b)
 	}
 
-	n = copy(b, c.buff)
-	c.buff = (c.buff)[n:]
+	n = copy(b, c.Buffer)
+	c.Buffer = (c.Buffer)[n:]
 	return n, nil
 }

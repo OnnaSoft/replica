@@ -22,7 +22,7 @@ func (h *Handler) setupRouter() {
 		}
 
 		fmt.Println("Publishing |" + msg.Data + "| to |" + msg.Channel + "|")
-		h.Publish(msg.Channel, msg.Data)
+		go h.Publish(msg.Channel, msg.Data)
 
 		fmt.Println("Published |" + msg.Data + "| to |" + msg.Channel + "|")
 
